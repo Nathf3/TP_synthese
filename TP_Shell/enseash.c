@@ -1,9 +1,8 @@
-
 #include "enseash.h"
 
-#define welcome_message "Welcom in the ENSEA's Shell. \nTo exit, type 'exit'\n"
+#define welcome_message "Welcome in the ENSEA Shell. \nTo exit, type 'exit'"
 #define MAX_INPUT_LENGTH 100
-#define prompt "enseash %"
+#define prompt "\nenseash % "
 
 int main() {
     write (STDOUT_FILENO,welcome_message, strlen(welcome_message));
@@ -14,18 +13,17 @@ int main() {
         buffer[length_command - 1] = 0;
 
         pid_t childPid = fork();
-        if (childPid == -1) {
+        if (childPid == -1) { //Error creating the child process
             write(STDERR_FILENO, "Error during child processor creation",
                   strlen("Error during child processor creation"));
         }
-        else if (childPid == 0) {
+        else if (childPid == 0) { //Child process
             execlp(buffer, buffer, (char *) NULL);
             write(STDERR_FILENO, "Error during command execution\n", strlen("Error during command execution\n"));
             exit(EXIT_FAILURE);
         }
-        else {
+        else { //Father process
             waitpid(childPid, NULL, 0);
         }
     }
-
 }
