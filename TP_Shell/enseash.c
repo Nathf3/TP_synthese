@@ -12,6 +12,11 @@ int main() {
         int length_command = read(STDIN_FILENO, buffer, MAX_INPUT_LENGTH);
         buffer[length_command - 1] = 0;
 
+        if (!strcmp(buffer,"exit") || (length_command==0)) { //Loop exit command
+            write(STDOUT_FILENO, "Bye bye ...", strlen("Bye bye ..."));
+            exit(EXIT_SUCCESS);
+        }
+
         pid_t childPid = fork();
         if (childPid == -1) { //Error creating the child process
             write(STDERR_FILENO, "Error during child processor creation",
