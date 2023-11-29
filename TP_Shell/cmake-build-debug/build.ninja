@@ -55,6 +55,12 @@ build CMakeFiles/TP_Shell.dir/Q1.c.o: C_COMPILER__TP_Shell_Debug /users/bastduqu
   OBJECT_DIR = CMakeFiles/TP_Shell.dir
   OBJECT_FILE_DIR = CMakeFiles/TP_Shell.dir
 
+build CMakeFiles/TP_Shell.dir/Q2.c.o: C_COMPILER__TP_Shell_Debug /users/bastduqu54/CLionProjects/TP_synthese/TP_Shell/Q2.c || cmake_object_order_depends_target_TP_Shell
+  DEP_FILE = CMakeFiles/TP_Shell.dir/Q2.c.o.d
+  FLAGS = -g -std=gnu99
+  OBJECT_DIR = CMakeFiles/TP_Shell.dir
+  OBJECT_FILE_DIR = CMakeFiles/TP_Shell.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target TP_Shell
@@ -63,7 +69,7 @@ build CMakeFiles/TP_Shell.dir/Q1.c.o: C_COMPILER__TP_Shell_Debug /users/bastduqu
 #############################################
 # Link the executable TP_Shell
 
-build TP_Shell: C_EXECUTABLE_LINKER__TP_Shell_Debug CMakeFiles/TP_Shell.dir/Q1.c.o
+build TP_Shell: C_EXECUTABLE_LINKER__TP_Shell_Debug CMakeFiles/TP_Shell.dir/Q1.c.o CMakeFiles/TP_Shell.dir/Q2.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/TP_Shell.dir
   POST_BUILD = :
