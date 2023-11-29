@@ -25,10 +25,28 @@ On commence par mettre tous mettre dans une boucle infini pour que notre termina
 `#define prompt "\nenseash % "`
 ```ruby
 while(1) {
-write(STDOUT_FILENO, prompt, strlen(prompt));
+write(STDOUT_FILENO, prompt, strlen(prompt));//display of the prompter
 char buffer[MAX_INPUT_LENGTH];
-int length_command = read(STDIN_FILENO, buffer, MAX_INPUT_LENGTH);
+int length_command = read(STDIN_FILENO, buffer, MAX_INPUT_LENGTH);//save the command from he terminal in a buffer
 buffer[length_command - 1] = 0; //make a limit of the command
 ...
 }
 ```
+On affiche le prompter et on récupère la commande du terminal pour le mettre dans un buffer 
+On fait ensuite un fork pour que l'on puisse réiterer le processus :
+```ruby
+pid_t childPid = fork();
+        if (childPid == -1) { //Error creating the child process
+            write(STDERR_FILENO, "Error during child processor creation",
+                  strlen("Error during child processor creation"));
+        }
+        else if (childPid == 0) { //Child process
+            execlp(buffer, buffer, (char *) NULL);
+            write(STDERR_FILENO, "Error during command execution\n", strlen("Error during command execution\n"));
+            exit(EXIT_FAILURE);
+        }
+        else { //Father process
+            waitpid(childPid, NULL, 0);
+        }
+  ```
+
