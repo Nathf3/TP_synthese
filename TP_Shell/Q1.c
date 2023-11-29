@@ -1,5 +1,9 @@
-#include "stdlib.h"
-#include "stdio.h"
-#include 
+#include <sys/types.h>
+#include <string.h>
+#include <unistd.h>
+#define message "Bienvenue dans le Shell ENSEA. \nPour quitter, tapez 'exit'"
 
-#include "Q1.h"
+int main() {
+    write (STDOUT_FILENO,message, strlen(message));
+    return 0;
+}
