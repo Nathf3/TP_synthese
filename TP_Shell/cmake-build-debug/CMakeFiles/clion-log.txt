@@ -1,0 +1,10 @@
+/usr/lsa/apps/jetbrains/clion-2022.2.4/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/usr/lsa/apps/jetbrains/clion-2022.2.4/bin/ninja/linux/ninja -G Ninja -S /users/bastduqu54/CLionProjects/TP_synthese/TP_Shell -B /users/bastduqu54/CLionProjects/TP_synthese/TP_Shell/cmake-build-debug
+-- The C compiler identification is GNU 8.5.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /users/bastduqu54/CLionProjects/TP_synthese/TP_Shell/cmake-build-debug
