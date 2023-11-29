@@ -1,6 +1,6 @@
 #include "enseash.h"
 
-#define welcome_message "Welcome in the ENSEA Shell. \nTo exit, type 'exit'"
+#define welcome_message "Welcome in the ENSEA Shell. \nTo exit, type 'exit' or use CTRL + D"
 #define MAX_INPUT_LENGTH 100
 #define prompt "\nenseash % "
 
