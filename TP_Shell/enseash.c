@@ -1,9 +1,12 @@
-#include <sys/types.h>
-#include <string.h>
-#include <unistd.h>
+
 #define message "Bienvenue dans le Shell ENSEA. \nPour quitter, tapez 'exit'"
+#include "enseash.h"
 
 int main() {
-    write (STDOUT_FILENO,message, strlen(message));
+    Q1();
     return 0;
+}
+
+void Q1() {
+    write (STDOUT_FILENO,message, strlen(message));
 }
