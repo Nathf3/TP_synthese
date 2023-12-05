@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/users/bastduqu54/CLionProjects/TP_synthese/TP_Shell/cmake-build-debug"
+			"value" : "/home/ghostrider/Documents/progsynthese/TP_synthese/TP_Shell/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -79,7 +79,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "23"
+			"value" : "26"
 		},
 		{
 			"name" : "CMAKE_CACHE_PATCH_VERSION",
@@ -91,7 +91,19 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "2"
+			"value" : "4"
+		},
+		{
+			"name" : "CMAKE_COLOR_DIAGNOSTICS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Enable colored diagnostics throughout."
+				}
+			],
+			"type" : "BOOL",
+			"value" : "ON"
 		},
 		{
 			"name" : "CMAKE_COMMAND",
@@ -103,7 +115,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/lsa/apps/jetbrains/clion-2022.2.4/bin/cmake/linux/bin/cmake"
+			"value" : "/snap/clion/250/bin/cmake/linux/x64/bin/cmake"
 		},
 		{
 			"name" : "CMAKE_CPACK_COMMAND",
@@ -115,7 +127,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/lsa/apps/jetbrains/clion-2022.2.4/bin/cmake/linux/bin/cpack"
+			"value" : "/snap/clion/250/bin/cmake/linux/x64/bin/cpack"
 		},
 		{
 			"name" : "CMAKE_CTEST_COMMAND",
@@ -127,7 +139,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/lsa/apps/jetbrains/clion-2022.2.4/bin/cmake/linux/bin/ctest"
+			"value" : "/snap/clion/250/bin/cmake/linux/x64/bin/ctest"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER",
@@ -159,7 +171,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/gcc-ar"
+			"value" : "/usr/bin/gcc-ar-11"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_RANLIB",
@@ -175,7 +187,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/gcc-ranlib"
+			"value" : "/usr/bin/gcc-ranlib-11"
 		},
 		{
 			"name" : "CMAKE_C_FLAGS",
@@ -272,18 +284,6 @@
 			],
 			"type" : "FILEPATH",
 			"value" : "CMAKE_DLLTOOL-NOTFOUND"
-		},
-		{
-			"name" : "CMAKE_EDIT_COMMAND",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Path to cache edit program executable."
-				}
-			],
-			"type" : "INTERNAL",
-			"value" : "/usr/lsa/apps/jetbrains/clion-2022.2.4/bin/cmake/linux/bin/ccmake"
 		},
 		{
 			"name" : "CMAKE_EXECUTABLE_FORMAT",
@@ -406,6 +406,18 @@
 			"value" : ""
 		},
 		{
+			"name" : "CMAKE_FIND_PACKAGE_REDIRECTS_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake."
+				}
+			],
+			"type" : "STATIC",
+			"value" : "/home/ghostrider/Documents/progsynthese/TP_synthese/TP_Shell/cmake-build-debug/CMakeFiles/pkgRedirects"
+		},
+		{
 			"name" : "CMAKE_GENERATOR",
 			"properties" : 
 			[
@@ -463,7 +475,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/users/bastduqu54/CLionProjects/TP_synthese/TP_Shell"
+			"value" : "/home/ghostrider/Documents/progsynthese/TP_synthese/TP_Shell"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -487,7 +499,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "0"
+			"value" : "1"
 		},
 		{
 			"name" : "CMAKE_LINKER",
@@ -515,7 +527,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "/usr/lsa/apps/jetbrains/clion-2022.2.4/bin/ninja/linux/ninja"
+			"value" : "/snap/clion/250/bin/ninja/linux/x64/ninja"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -747,7 +759,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/lsa/apps/jetbrains/clion-2022.2.4/bin/cmake/linux/share/cmake-3.23"
+			"value" : "/snap/clion/250/bin/cmake/linux/x64/share/cmake-3.26"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -995,7 +1007,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/users/bastduqu54/CLionProjects/TP_synthese/TP_Shell/cmake-build-debug"
+			"value" : "/home/ghostrider/Documents/progsynthese/TP_synthese/TP_Shell/cmake-build-debug"
 		},
 		{
 			"name" : "TP_Shell_IS_TOP_LEVEL",
@@ -1019,7 +1031,19 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/users/bastduqu54/CLionProjects/TP_synthese/TP_Shell"
+			"value" : "/home/ghostrider/Documents/progsynthese/TP_synthese/TP_Shell"
+		},
+		{
+			"name" : "_CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "linker supports push/pop state"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "TRUE"
 		}
 	],
 	"kind" : "cache",

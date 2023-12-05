@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "TP_Shell::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-TP_Shell-Debug-2c64622a3faa83c31d04.json",
+					"jsonFile" : "target-TP_Shell-Debug-98abe5bdaa39b27496b8.json",
 					"name" : "TP_Shell",
 					"projectIndex" : 0
 				}
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/users/bastduqu54/CLionProjects/TP_synthese/TP_Shell/cmake-build-debug",
-		"source" : "/users/bastduqu54/CLionProjects/TP_synthese/TP_Shell"
+		"build" : "/home/ghostrider/Documents/progsynthese/TP_synthese/TP_Shell/cmake-build-debug",
+		"source" : "/home/ghostrider/Documents/progsynthese/TP_synthese/TP_Shell"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 4
+		"minor" : 5
 	}
 }

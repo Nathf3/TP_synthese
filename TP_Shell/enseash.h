@@ -8,6 +8,7 @@
 #include <unistd.h>
 
 #endif //TP_SHELL_ENSEASH_H
-
-void welcome_message(void);
+void init_micro_shell(void);
+void Welcome_message_display(void);
+void run_micro_shell(void);
 void Q2(void);

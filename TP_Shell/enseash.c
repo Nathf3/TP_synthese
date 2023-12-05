@@ -1,3 +1,4 @@
+
 #include "enseash.h"
 
 #define welcome_message "Welcome in the ENSEA Shell. \nTo exit, type 'exit' or use CTRL + D"
@@ -5,8 +6,19 @@
 #define prompt "\nenseash % "
 
 int main() {
-    write (STDOUT_FILENO,welcome_message, strlen(welcome_message));
+    Welcome_message_display();
     while(1) {
+        run_micro_shell();
+    }
+}
+
+void Welcome_message_display(void){ //display of the welcome's message
+write (STDOUT_FILENO,welcome_message, strlen(welcome_message));
+}
+
+void run_micro_shell(){// init micro shell and run micro shell
+
+
         write(STDOUT_FILENO, prompt, strlen(prompt));
         char buffer[MAX_INPUT_LENGTH];
         int length_command = read(STDIN_FILENO, buffer, MAX_INPUT_LENGTH);
@@ -30,5 +42,5 @@ int main() {
         else { //Father process
             waitpid(childPid, NULL, 0);
         }
-    }
+
 }
