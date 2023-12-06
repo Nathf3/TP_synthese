@@ -12,12 +12,13 @@ int main() {
 }
 
 void Welcome_message_display(void){ //display of the welcome's message
-write (STDOUT_FILENO,welcome_message, strlen(welcome_message));
+    write (STDOUT_FILENO,welcome_message, strlen(welcome_message));
+    write(STDOUT_FILENO, prompt, strlen(prompt));
 }
 
 void run_micro_shell(){// init micro shell and run micro shell
 
-        write(STDOUT_FILENO, prompt, strlen(prompt));
+
         char buffer[MAX_INPUT_LENGTH];
         int length_command = read(STDIN_FILENO, buffer, MAX_INPUT_LENGTH);
         buffer[length_command - 1] = 0;
@@ -27,31 +28,24 @@ void run_micro_shell(){// init micro shell and run micro shell
             exit(EXIT_SUCCESS);
         }
 
+        double time_spent = 0.0;
+        clock_t begin = clock();   //Start of the execution time measurement
+
         int status;
         pid_t childPid = fork();
-        if (childPid == -1) { //Error creating the child process
-            write(STDERR_FILENO, "Error during child processor creation",
-                  strlen("Error during child processor creation"));
+        if (childPid == -1) {   //Error creating the child process
+            write(STDERR_FILENO, "Error during child processor creation",strlen("Error during child processor creation"));
         }
-        else if (childPid == 0) { //Child process
+        else if (childPid == 0) {   //Child process
             execlp(buffer, buffer, (char *) NULL);
             write(STDERR_FILENO, "Error during command execution\n", strlen("Error during command execution\n"));
             exit(EXIT_FAILURE);
         }
-        else { //Father process
+        else {   //Father process
             wait(&status);
+            clock_t end = clock();   //End of the execution time measurement
+            time_spent += 1000 * (double)(end - begin) / CLOCKS_PER_SEC;
 
-            if (WIFEXITED(status)) {
-                char message[100];
-                int exit_status = WEXITSTATUS(status);
-                sprintf(message,"code exit : %d\n", exit_status);
-                write(STDOUT_FILENO,message,strlen(message));
-            }
-            else if (WIFSIGNALED(status)) {
-                char message1[100];
-                int signal_status = WTERMSIG(status);
-                sprintf(message1,"signal exit : %d\n", signal_status);
-                write(STDOUT_FILENO,message1,strlen(message1));
-            }
+            display_signal_or_exit_code(status,time_spent);
         }
 }

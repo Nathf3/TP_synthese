@@ -6,8 +6,8 @@
 #include <sys/types.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
 
 #endif //TP_SHELL_ENSEASH_H
-void init_micro_shell(void);
 void Welcome_message_display(void);
 void run_micro_shell(void);
