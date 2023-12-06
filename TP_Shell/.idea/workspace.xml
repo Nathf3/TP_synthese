@@ -20,20 +20,21 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06f7d079-92c1-4ccf-8993-2813da3730a6" name="Changes" comment="Q4">
+    <list default="true" id="06f7d079-92c1-4ccf-8993-2813da3730a6" name="Changes" comment="Q5">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-c9be691b2a45f30c38b2.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2023-12-06T12-47-06-0381.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TP_Shell.dir/enseash.c.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TP_Shell.dir/enseash.c.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/TP_Shell" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/TP_Shell" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/enseash.c" beforeDir="false" afterPath="$PROJECT_DIR$/enseash.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/enseash.h" beforeDir="false" afterPath="$PROJECT_DIR$/enseash.h" afterDir="false" />
     </list>
-    <list id="ce21cf5e-7505-40be-a61c-62c6e83b3488" name="Changes by ghostrider" comment="Q4">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list id="ce21cf5e-7505-40be-a61c-62c6e83b3488" name="Changes by ghostrider" comment="Q6">
       <change beforePath="$PROJECT_DIR$/enseash.c" beforeDir="false" afterPath="$PROJECT_DIR$/enseash.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/enseash.h" beforeDir="false" afterPath="$PROJECT_DIR$/enseash.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,24 +49,17 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/enseash.h">
-      <ranges>
-        <range start1="8" end1="8" start2="8" end2="9" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
-        <range start1="10" end1="11" start2="11" end2="11" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
-        <range start1="13" end1="13" start2="13" end2="14" changelist="ce21cf5e-7505-40be-a61c-62c6e83b3488" />
-      </ranges>
-    </file>
     <file path="$PROJECT_DIR$/enseash.c">
       <ranges>
-        <range start1="14" end1="15" start2="14" end2="16" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
-        <range start1="19" end1="20" start2="20" end2="21" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
-        <range start1="29" end1="29" start2="30" end2="33" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
-        <range start1="31" end1="34" start2="35" end2="37" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
-        <range start1="35" end1="36" start2="38" end2="39" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
-        <range start1="40" end1="41" start2="43" end2="44" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
-        <range start1="42" end1="42" start2="45" end2="47" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
-        <range start1="43" end1="55" start2="48" end2="49" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
-        <range start1="57" end1="57" start2="51" end2="65" changelist="ce21cf5e-7505-40be-a61c-62c6e83b3488" />
+        <range start1="13" end1="14" start2="13" end2="14" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
+        <range start1="18" end1="19" start2="18" end2="19" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
+        <range start1="24" end1="25" start2="24" end2="25" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
+        <range start1="28" end1="28" start2="28" end2="38" changelist="ce21cf5e-7505-40be-a61c-62c6e83b3488" />
+        <range start1="30" end1="31" start2="40" end2="41" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
+        <range start1="38" end1="39" start2="48" end2="50" changelist="ce21cf5e-7505-40be-a61c-62c6e83b3488" />
+        <range start1="44" end1="45" start2="55" end2="56" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
+        <range start1="55" end1="56" start2="66" end2="67" changelist="06f7d079-92c1-4ccf-8993-2813da3730a6" />
+        <range start1="64" end1="64" start2="75" end2="76" changelist="ce21cf5e-7505-40be-a61c-62c6e83b3488" />
       </ranges>
     </file>
   </component>
@@ -125,7 +119,7 @@
       <updated>1701277267454</updated>
       <workItem from="1701277272674" duration="388000" />
       <workItem from="1701774957562" duration="749000" />
-      <workItem from="1701866758205" duration="6719000" />
+      <workItem from="1701866758205" duration="12129000" />
     </task>
     <task id="LOCAL-00001" summary="Q4">
       <created>1701869487178</created>
@@ -148,7 +142,56 @@
       <option name="project" value="LOCAL" />
       <updated>1701869857186</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Q4">
+      <created>1701873592141</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1701873592141</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Q4">
+      <created>1701873601045</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1701873601045</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Q5">
+      <created>1701873647018</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1701873647018</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Q5">
+      <created>1701873657264</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1701873657264</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Q5">
+      <created>1701873694576</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1701873694576</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Q5">
+      <created>1701873704709</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1701873704709</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Q6">
+      <created>1701879100315</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1701879100315</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,6 +216,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Q4" />
-    <option name="LAST_COMMIT_MESSAGE" value="Q4" />
+    <MESSAGE value="Q5" />
+    <MESSAGE value="Q6" />
+    <option name="LAST_COMMIT_MESSAGE" value="Q6" />
   </component>
 </project>
