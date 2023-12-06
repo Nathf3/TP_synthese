@@ -18,7 +18,6 @@ void Welcome_message_display(void){ //display of the welcome's message
 
 void run_micro_shell(){// init micro shell and run micro shell
 
-
         char buffer[MAX_INPUT_LENGTH];
         int length_command = read(STDIN_FILENO, buffer, MAX_INPUT_LENGTH);
         buffer[length_command - 1] = 0;
