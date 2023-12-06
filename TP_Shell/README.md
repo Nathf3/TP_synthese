@@ -34,6 +34,7 @@ buffer[length_command - 1] = 0; //make a limit of the command
 ```
 On affiche le prompter et on récupère la commande du terminal pour le mettre dans un buffer 
 On fait ensuite un fork pour que l'on puisse réiterer le processus :
+
 ```ruby
 pid_t childPid = fork();
         if (childPid == -1) { //Error creating the child process
@@ -49,4 +50,34 @@ pid_t childPid = fork();
             waitpid(childPid, NULL, 0);
         }
   ```
+Apres que le fils sera executé donc que la dernière commande sera entrée et validée,le fils sera delete pour laisser place au père qui refait donc une 
+demande de de commande .
 
+## Question 3 
+>on souhaite maintenant pouvoir quitte le terminal soit en tappant exit soit en faisant ctrl+D
+
+Pour ce faire on détecte quand la commande exit et entrée puis on sort du programme 
+```ruby
+if (!strcmp(buffer,"exit") || (length_command==0)) { //Loop exit command
+write(STDOUT_FILENO, "Bye bye ...", strlen("Bye bye ..."));
+exit(EXIT_SUCCESS);
+}
+```
+Pour détecter le ctrl+D il faut regarder si apres avoir tapé la commande le buffer c'est vidé 
+on regarde donc si la taille de la commande reçus est null : `(length_command==0)` .
+
+## Question 4
+>on souhaite maintenant affichage du code de retour (ou du signal) de la commande précédente dans le prompt
+
+```ruby 
+enseash % wc
+signal exit : 9
+
+enseash % ls
+build.ninja  CMakeCache.txt  CMakeFiles  cmake_install.cmake  Testing  TP_Shell
+code exit : 0
+
+enseash % azerty
+code exit : 1
+Error during command execution
+```

@@ -11,4 +11,3 @@
 void init_micro_shell(void);
 void Welcome_message_display(void);
 void run_micro_shell(void);
-void Q2(void);
