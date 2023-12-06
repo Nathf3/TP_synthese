@@ -46,7 +46,6 @@ void run_micro_shell(){// Initialize and run micro shell
             write(STDERR_FILENO, "Error during child processor creation",strlen("Error during child processor creation"));
         }
         else if (childPid == 0) {   //Child process
-            //execlp(buffer, buffer, (char *) NULL);
             execvp(command[0],command);
             write(STDERR_FILENO, "Error during command execution\n", strlen("Error during command execution\n"));
             exit(EXIT_FAILURE);
