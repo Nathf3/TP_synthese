@@ -104,8 +104,22 @@ avoir recupéré l'id par la commande `>ps` par la commande `>kill -9 67543`(ici
 
 Pour ce faire on fait appel à la bibliothèque `#include <time.h>`  
 /!\pour prendre la mesure de fin il ne faut pas le prendre au niveau du fils sinon la mesure est faussé ,il faut le mettre apres le wait.
-On commence par prendre une mesure de temp 
+On commence par prendre une mesure de temp avant le fork 
 ```ruby 
 double time_spent = 0.0;
 clock_t begin = clock(); 
 ```
+puis on prend une mesure apres le wait du processus père:
+```ruby
+wait(&status);
+clock_t end = clock();   //End of the execution time measurement
+time_spent += 1000 * (double)(end - begin) / CLOCKS_PER_SEC;
+```
+puis on affiche en ms apres chaque commande et on obtient:
+```ruby
+enseash % hostname
+d297-pc2.smbedu.ensea.fr
+enseahsh [exit : 0 | 0.084 ms] % 
+```
+## Question 6
+>On souhaite réaliser des commandes complexes et récupperer les arguments de celle-ci
