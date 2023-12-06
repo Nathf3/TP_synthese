@@ -1,4 +1,3 @@
-
 #include "enseash.h"
 
 #define welcome_message "Welcome in the ENSEA Shell. \nTo exit, type 'exit' or use CTRL + D"
@@ -18,7 +17,6 @@ write (STDOUT_FILENO,welcome_message, strlen(welcome_message));
 
 void run_micro_shell(){// init micro shell and run micro shell
 
-
         write(STDOUT_FILENO, prompt, strlen(prompt));
         char buffer[MAX_INPUT_LENGTH];
         int length_command = read(STDIN_FILENO, buffer, MAX_INPUT_LENGTH);
@@ -29,6 +27,7 @@ void run_micro_shell(){// init micro shell and run micro shell
             exit(EXIT_SUCCESS);
         }
 
+        int status;
         pid_t childPid = fork();
         if (childPid == -1) { //Error creating the child process
             write(STDERR_FILENO, "Error during child processor creation",
@@ -40,7 +39,19 @@ void run_micro_shell(){// init micro shell and run micro shell
             exit(EXIT_FAILURE);
         }
         else { //Father process
-            waitpid(childPid, NULL, 0);
-        }
+            wait(&status);
 
+            if (WIFEXITED(status)) {
+                char message[100];
+                int exit_status = WEXITSTATUS(status);
+                sprintf(message,"code exit : %d\n", exit_status);
+                write(STDOUT_FILENO,message,strlen(message));
+            }
+            else if (WIFSIGNALED(status)) {
+                char message1[100];
+                int signal_status = WTERMSIG(status);
+                sprintf(message1,"signal exit : %d\n", signal_status);
+                write(STDOUT_FILENO,message1,strlen(message1));
+            }
+        }
 }
