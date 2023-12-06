@@ -102,6 +102,6 @@ avoir recupéré l'id par la commande `>ps` par la commande `>kill -9 67543`(ici
 ## Question 5
 >On souhaite mesurer le temps d’exécution des commandes.
 
-Pour ce faire on fait appel à la fonction `clock_gettime`  
+Pour ce faire on fait appel à la bibliothèque `#include <time.h>`  
 /!\pour prendre la mesure de fin il ne faut pas le prendre au niveau du fils sinon la mesure est faussé ,il faut le mettre apres le wait.
 
