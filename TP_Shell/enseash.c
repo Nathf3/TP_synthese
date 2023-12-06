@@ -49,3 +49,17 @@ void run_micro_shell(){// init micro shell and run micro shell
             display_signal_or_exit_code(status,time_spent);
         }
 }
+
+void display_signal_or_exit_code(int status,double time_spent){
+    char message_exit[100];
+    if (WIFEXITED(status)) {
+        int exit_status = WEXITSTATUS(status);
+        sprintf(message_exit,"\nenseahsh [exit : %d | %.3f ms] %% ", exit_status,time_spent);
+        write(STDOUT_FILENO,message_exit,strlen(message_exit));
+    }
+    else if (WIFSIGNALED(status)) {
+        int signal_status = WTERMSIG(status);
+        sprintf(message_exit,"\nenseash [sign : %d | %.3f ms] %% ", signal_status,time_spent);
+        write(STDOUT_FILENO,message_exit,strlen(message_exit));
+    }
+}

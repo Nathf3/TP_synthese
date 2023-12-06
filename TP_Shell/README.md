@@ -69,15 +69,39 @@ on regarde donc si la taille de la commande reçus est null : `(length_command==
 ## Question 4
 >on souhaite maintenant affichage du code de retour (ou du signal) de la commande précédente dans le prompt
 
+Pour ce faire on fait appel aux fonctions `WIFEXITED(status)` et 'WIFSIGNALED(status)' qui servent à récuperer le code d'exit 
+et le code du signal de sortie :
+```ruby
+char message_exit[100];
+if (WIFEXITED(status)) {
+    int exit_status = WEXITSTATUS(status);
+    sprintf(message_exit,"\nenseahsh [exit:%d] %%", exit_status);
+    write(STDOUT_FILENO,message_exit,strlen(message_exit));
+}
+else if (WIFSIGNALED(status)) {
+    int signal_status = WTERMSIG(status);
+    sprintf(message_exit,"\nenseash [sign:%d] %%", signal_status);
+    write(STDOUT_FILENO,message_exit,strlen(message_exit));
+}
+``` 
+On obtient donc le résulats suivant :
 ```ruby 
 enseash % wc
-signal exit : 9
 
-enseash % ls
+enseash [sign:9] %ls
 build.ninja  CMakeCache.txt  CMakeFiles  cmake_install.cmake  Testing  TP_Shell
-code exit : 0
 
-enseash % azerty
-code exit : 1
+enseahsh [exit:0] %aaaa
+
 Error during command execution
+enseahsh [exit:1] %
 ```
+Pour obtenir le sig 9 on à du lancer un processus comme `>wc` puis on la kill apres 
+avoir recupéré l'id par la commande `>ps` par la commande `>kill -9 67543`(ici notre id etait 67543)
+
+## Question 5
+>On souhaite mesurer le temps d’exécution des commandes.
+
+Pour ce faire on fait appel à la fonction `clock_gettime`  
+/!\pour prendre la mesure de fin il ne faut pas le prendre au niveau du fils sinon la mesure est faussé ,il faut le mettre apres le wait.
+
