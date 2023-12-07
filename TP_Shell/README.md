@@ -122,3 +122,34 @@ enseahsh [exit : 0 | 0.084 ms] %
 ```
 ## Question 6
 >On souhaite réaliser des commandes complexes et récupperer les arguments de celle-ci
+
+Pour ce faire on vas utiliser la fonction strtok qui permet de stocker dans un pointeur des chaine de caractères séparer par un séparateur dans notre cas on utilise l'espace.
+Pour utiliser la fonction strtok on commence à lui faire un premier appel ou on lui donne la chaine de charactère à analiser puis on lui spécifie le séparateur .
+Une fois la première appel pour récuperer les autres mots il faut réappeller la fonction cette fois avec NULL comme argument à la place de la chaine de caractère et toujour le séparateur .
+```ruby
+int i=0;
+char* command[10];//initialisation of the pointer of a table
+char* mot = strtok(buffer," ");//start strtok to put the first word in the pointer mot 
+
+while(mot!=NULL ) {//while loop to store all the word 
+    command[i]=mot;
+    i++;
+    mot = strtok(NULL," ");//after the first call the next need to be call like that to get all word 
+}
+command[i]=NULL;// at the end of the table we put NULL to end the command 
+```
+Il ne faut pas oublier de mettre NULL apres la dernière instruction de command dans le tableau pour que par la suite la fonction ` execvp(command[0],command);` comprène jusqu'ou vas la commande.
+Pour que cela fonctionne il faut remplacer `execlp()` par `execvp()`.
+En effet "l" de execlp() signifie que tous les arguments sont passés un par un en arguments de execl*, en terminant par (char*)NULL .
+Or nous on souhaite envoyer notre tableau donc on à besoin de "v" les arguments sont passés en une fois dans un (char **) dont le dernier élément est (char*)NULL.
+Apres teste on obtient le résultat suivant:
+```ruby
+enseash % hostname -i
+127.0.1.1
+```
+
+## Question 7
+>On souhaite mesurer le temps d’exécution des commandes.
+
+Nous n'avons pas pus finir cette question mais notr idée etait de récuperer le reultat d'execution de la commande d'ouvrir /crrer un fichier text avec open et creat et de détecter les caractères < et > dans les chaines de caractère du tableau commande pour choisir entre ouverture et ecriture ou ouverture et copy .
+
