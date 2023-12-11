@@ -21,8 +21,11 @@ int main(int argc, char * argv[ ]){
 
     getnameinfo(client -> ai_addr,client -> ai_addrlen,bufferHostname,128,bufferServiceName,128,NI_NUMERICHOST | NI_NUMERICSERV);
     printf("server : %s:%s\n",bufferHostname, bufferServiceName);//test display client ip
-    sendto(sock,bufferHostname,128,);
+    int numberOfCaracterSend=sendto(sock,"00 01 ones256 neta scii 0",128,0,client->ai_addr,client ->ai_addrlen);
+   //  a lettre en forme le 00 01 onese25 neta scii etc
 
+    if(numberOfCaracterSend==-1) exit(EXIT_FAILURE);
+    printf("number of caracter send :%d \n",numberOfCaracterSend);
     return EXIT_SUCCESS;
 }
 
