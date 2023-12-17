@@ -89,7 +89,64 @@ char * file = argv[1];
 char * servername = argv[2];
 char * port = argv[3];
 ```
-## Etape 2 - Appel de `getaddrinfo(servername,port,&hints,&result)` pour obtenir l'adresse du serveur  
+## Etape 2 - Appel de `getaddrinfo()` pour obtenir l'adresse du serveur  
 
+Pour ce faire il faut spécifier le type d'adresse le datagrame et le type de protocole dans notre cas UDP.
+Une fois cela fais on met les arguments dans la fonction est on récpère le résultats dans un pointeur .
 
+```ruby
+struct addrinfo * result;
+struct addrinfo hints;
+memset(&hints,0,sizeof(struct addrinfo));//allocation of memory for the struct 
+hints.ai_family = AF_INET; //IPv4
+hints.ai_socktype = SOCK_DGRAM;// datagram socket
+hints.ai_protocol = IPPROTO_UDP;
+hints.ai_flags = AI_PASSIVE;    /* For wildcard IP address */
+int  s= getaddrinfo(servername,port,&hints,&result);
+if (s != 0) {
+    fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(s));
+    exit(EXIT_FAILURE);
+}
+return result;
+```
+On peut utiliser le code suivant pour verifier que notre code fonctionne bien :  
+```ruby
+getnameinfo(client -> ai_addr,client -> ai_addrlen,bufferHostname,128,bufferServiceName,128,NI_NUMERICHOST | NI_NUMERICSERV);
+printf("server : %s:%s\n",bufferHostname, bufferServiceName);//test display client ip
+```   
+## Etape 3 - Réservation d’un socket de connexion vers le serveur  
+La réservation de socket se fait de cette manière :
+```ruby
+int sock=socket( client->ai_family , client->ai_socktype, client->ai_protocol );
+if(sock < 0) { //control error
+fprintf(stderr,"socket error");
+exit(EXIT_FAILURE );
+}
+```
+
+## Etape 4 - Réalisation de gettftp  
+### 4.a Construction d’une requête en lecture (RRQ) et envoi au serveur.  
+Comme on l'a vue précédemment il faut que notre requette conctienne un Opcode sur 2 octets le nom du fichier 1 octet de séparation,le mode puis l'octet Null pour fermer.
+On définit donc ces octets en ascii car on envoie en ascii:  
+```ruby
+#define RRQ_Opcode '\x01'
+#define WRQ_Opcode '\x02'
+#define DATA_Opcode '\x03'
+#define ACK_Opcode '\x04'
+#define ACK_Block '\x01'
+#define Null_Byte '\0'
+#define RRQ_Mode "netascii"
+#define WRQ_Mode "netascii"
+```
+On crée notre message d'envoie :  
+`snprintf(RRQ_request_msg, sizeof(RRQ_request_msg), "%c%c%s%c%s%02x", Null_Byte,RRQ_Opcode, file_name, Null_Byte, RRQ_Mode, Null_Byte);`  
+Puis on envoie :
+`int numberOfCaracterSend=sendto(sock,RRQ_request_msg,message_size,0,client->ai_addr,client ->ai_addrlen);`
+On obtient bien le résultat souhaité :
+```ruby
+00 01 6f 6e 65 73 ..ones  
+32 35 36 00 6e 65 256.neta
+74 61 73 63 69 69 scii
+00
+```
 

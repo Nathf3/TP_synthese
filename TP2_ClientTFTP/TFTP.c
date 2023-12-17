@@ -3,35 +3,36 @@
 int main(int argc, char * argv[ ]){
     checkArgumentNumbers( argc);//verification of number of arguments
     //storage of arguments
-    char * file = argv[1];
+    char * file_name = argv[1];
     char * servername = argv[2];
     char * port = argv[3];
     //buffer init
     char bufferServiceName[128] = {0};
     char bufferHostname[128] = {0};
 
-    printf("Trying to get %s from %s on port %s\n", file, servername,port);
+    printf("Trying to get %s from %s on port %s\n", file_name, servername,port);
     struct addrinfo * client = get_address_of_server(servername, port);
+    //socket build
     int sock=socket( client->ai_family , client->ai_socktype, client->ai_protocol );
     if(sock < 0) { //control error
-        perror("socket error");
+        fprintf(stderr,"socket error");
         exit(EXIT_FAILURE );
     }
-
+    //test display client ip
     getnameinfo(client -> ai_addr,client -> ai_addrlen,bufferHostname,128,bufferServiceName,128,NI_NUMERICHOST | NI_NUMERICSERV);
-    printf("server : %s:%s\n",bufferHostname, bufferServiceName);//test display client ip
-    int numberOfCaracterSend=sendto(sock,"00 01 ones256 neta scii 0",128,0,client->ai_addr,client ->ai_addrlen);
-   //  a lettre en forme le 00 01 onese25 neta scii etc
+    printf("server : %s:%s\n",bufferHostname, bufferServiceName);
 
-    if(numberOfCaracterSend==-1) exit(EXIT_FAILURE);
-    printf("number of caracter send :%d \n",numberOfCaracterSend);
+
+
+    int NumberOfCaracterSend=Read_Request(file_name,sock,client);
+    printf("number of caracter send :%d \n",NumberOfCaracterSend);
     return EXIT_SUCCESS;
 }
 
 struct addrinfo * get_address_of_server(char * servername,char * port){
     struct addrinfo * result;
     struct addrinfo hints;
-    memset(&hints,0,sizeof(struct addrinfo));
+    memset(&hints,0,sizeof(struct addrinfo));//allocation of memory for the struct
     hints.ai_family = AF_INET; //IPv4
     hints.ai_socktype = SOCK_DGRAM;// datagram socket
     hints.ai_protocol = IPPROTO_UDP;
@@ -52,4 +53,22 @@ void checkArgumentNumbers(int numberOfArgument){// verification that the number 
         fprintf(stderr,"Not enough argument \nHelp: gettftp [file_name] [server_name] [port_number]");
         exit(EXIT_FAILURE);
     }
+}
+
+int Read_Request(char * file_name,int sock,struct addrinfo * client){//read request function
+
+    //construction and send of RRQ
+    int message_size = 2+ strlen(file_name) +1+ strlen(RRQ_Mode)+1; // size of msg
+
+    char RRQ_request_msg[message_size];
+    // construction of RRQ
+    snprintf(RRQ_request_msg, sizeof(RRQ_request_msg), "%c%c%s%c%s%02x", Null_Byte,RRQ_Opcode, file_name, Null_Byte, RRQ_Mode, Null_Byte);
+    //envoie du RRQ
+    int numberOfCaracterSend=sendto(sock,RRQ_request_msg,message_size,0,client->ai_addr,client ->ai_addrlen);
+
+    if(numberOfCaracterSend==-1) {
+        fprintf(stderr,"error send RRQ");
+        exit(EXIT_FAILURE);
+    }
+    return numberOfCaracterSend;
 }

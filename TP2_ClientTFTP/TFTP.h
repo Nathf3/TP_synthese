@@ -13,5 +13,17 @@
 #include "sys/socket.h"
 #include "netdb.h"
 #include <stdlib.h>
+
+//define
+#define RRQ_Opcode '\x01'
+#define WRQ_Opcode '\x02'
+#define DATA_Opcode '\x03'
+#define ACK_Opcode '\x04'
+#define ACK_Block '\x01'
+#define Null_Byte '\0'
+#define RRQ_Mode "netascii"
+#define WRQ_Mode "netascii"
+//Function//
 void checkArgumentNumbers(int numberOfArgument);
 struct addrinfo *get_address_of_server(char *servername,char *port);
+int Read_Request(char * file_name,int sock,struct addrinfo * client);//read request function
