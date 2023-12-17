@@ -2,7 +2,7 @@
 ## Objectif  
 L'objectif est de créer un programme client qui doit être capable d’échanger des fichiers à l’aide
 du protocole TFTP (Trivial File Transfert Protocol).
-## Teste du Serveur 
+## Etape 0 - Teste du Serveur 
 >Pour tester notre client nous avon sdécidé d'utiliser le serveur présent sur moodle
 
 Pour lancer le serveur il faut le télécharger et ouvrir le fichier `./go.sh` .  
@@ -78,4 +78,8 @@ On sait donc comment fonctionne le protocole TFTP pour le téléversement de fic
 2. Le serveur répond par un accusée de réception.
 2. Le client répond par l'envoie des données du fichier.
 3. Le serveur répond par un accusé de réception.
+
+## Etape 1 - Recupération des arguments passés à la ligne de commande des programmes pour obtenir les informations de requêtes  
+Pour récupérer les arguments passé en ligne de commande on vérifie que le nombre d'argument est correcte 
+
 
