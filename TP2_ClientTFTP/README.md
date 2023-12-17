@@ -25,9 +25,9 @@ D'apres la documentation on sait :
 - Mode : 6e 65 74 61 73 63 69 69(mode qui est du netascii)
 - 0 : Fin
 
-Le client demande une requete de lecture au serveur:  
+Le client demande une requete de lecture au serveur. 
 
-*2ème communication :*  
+**2ème communication :**  
 ![2ème communication.](https://raw.githubusercontent.com/Nathf3/TP_synthese/main/TP2_ClientTFTP/photo/getrequest2.png)  
 D'apres la documentation :  
 ![2ème communication.](https://github.com/Nathf3/TP_synthese/blob/main/TP2_ClientTFTP/photo/data.png)  
@@ -53,15 +53,29 @@ On sait donc comment fonctionne le protocole TFTP pour le téléchargement de fi
 3. Le client envoie un accusé de réception.
 
 ### Teste du téléversement du fichier ones256 
-### puttftp
-![Capture Wireshark des 4 communications relevées lors du puttftp.](https://raw.githubusercontent.com/Nathf3/TP_synthese/main/TP2_ClientTFTP/photo/putrequette.png)  
-Comme pour le gettftp, on observe les informations concernant les différentes communications entre le client et le serveur.  
-Ici, l'objectif est de déposer un fichier présent chez le client sur le serveur.
-![1ère communication](https://raw.githubusercontent.com/Nathf3/TP_synthese/main/TP2_ClientTFTP/photo/putrequet1.png)  
-Le client (53405) commence par communiquer au serveur le nom du fichier qu'il souhaite transférer.
-![2ème communication](https://raw.githubusercontent.com/Nathf3/TP_synthese/main/TP2_ClientTFTP/photo/putrequet2.png)
-Le serveur répond par un accusé de réception de la requête.
-![3ème communication](https://raw.githubusercontent.com/Nathf3/TP_synthese/main/TP2_ClientTFTP/photo/putrequet3.png)
-Le client envoie le contenu du fichier à transférer.
-![4ème communication](https://raw.githubusercontent.com/Nathf3/TP_synthese/main/TP2_ClientTFTP/photo/putrequet4.png)
-Le serveur accuse réception du contenu du fichier.
+On utilise pour ce faire la commande `put ones256` et on observe le résulat sur wireshark:   
+![Capture Wireshark des 3 communications relevées lors du gettftp.](https://github.com/Nathf3/TP_synthese/blob/main/TP2_ClientTFTP/photo/putrequest.png)  
+On observe donc 4 communications entre serveur et client.  
+
+**1ère communication :**  
+![Capture Wireshark des 3 communications relevées lors du gettftp.](https://github.com/Nathf3/TP_synthese/blob/main/TP2_ClientTFTP/photo/putrequest1.png)  
+Le client envoie une Demande d'écriture pour le ficheir ones256 en netascii au serveur.  
+
+**2ème communication :**  
+![Capture Wireshark des 3 communications relevées lors du gettftp.](https://github.com/Nathf3/TP_synthese/blob/main/TP2_ClientTFTP/photo/putrequest2.png)  
+Le serveur répond qu'il est daccord avec un accusé de réception.  
+
+**3ème communication :**  
+![Capture Wireshark des 3 communications relevées lors du gettftp.](https://github.com/Nathf3/TP_synthese/blob/main/TP2_ClientTFTP/photo/putrequest3.png)  
+Le client envoie donc le contenue du fichier en netascii au serveur.  
+
+**4ème communication :**  
+![Capture Wireshark des 3 communications relevées lors du gettftp.](https://github.com/Nathf3/TP_synthese/blob/main/TP2_ClientTFTP/photo/putrequest4.png)  
+Le serveur renvoie alors qu'il à bien reçus par un accuée de réception.  
+
+On sait donc comment fonctionne le protocole TFTP pour le téléversement de fichier :  
+1. le client demande au serveur de une requête d'écirtue avec le mode de lecture . 
+2. Le serveur répond par un accusée de réception.
+2. Le client répond par l'envoie des données du fichier.
+3. Le serveur répond par un accusé de réception.
+
