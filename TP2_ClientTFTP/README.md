@@ -1,6 +1,6 @@
 # TP2 Client TFTP
 ## 1 : Utilisation des arguments passés à la ligne de commande des programmes gettftp et puttftp pour obtenir les informations de requêtes (serveur et fichier)
-### gettftp
+>On souhaite observer le trafic pour voir comment fonctionne le protocol tftp 
 ![Capture Wireshark des 3 communications relevées lors du gettftp.](https://raw.githubusercontent.com/Nathf3/TP_synthese/main/TP2_ClientTFTP/photo/getrequest.png)
 On observe trois communications entre le serveur et le client.  
 Pour chacunes d'entre elles, on peut voir les ports qui ont communiqué, ainsi que la taille des messages.  
