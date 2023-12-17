@@ -80,6 +80,15 @@ On sait donc comment fonctionne le protocole TFTP pour le téléversement de fic
 3. Le serveur répond par un accusé de réception.
 
 ## Etape 1 - Recupération des arguments passés à la ligne de commande des programmes pour obtenir les informations de requêtes  
-Pour récupérer les arguments passé en ligne de commande on vérifie que le nombre d'argument est correcte 
+Pour récupérer les arguments passés en ligne de commande on vérifie que le nombre d'argument est correcte avec la fonction `void checkArgumentNumbers(int numberOfArgument)`.  
+Puis, on stocke les différents arguments dans des pointeurs :  
+```ruby    
+checkArgumentNumbers( argc);//verification of number of arguments
+//storage of arguments
+char * file = argv[1];
+char * servername = argv[2];
+char * port = argv[3];
+```
+## Etape 2 - Appel de `getaddrinfo(servername,port,&hints,&result)` pour obtenir l'adresse du serveur  
 
 

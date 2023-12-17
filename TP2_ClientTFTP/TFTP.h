@@ -13,5 +13,5 @@
 #include "sys/socket.h"
 #include "netdb.h"
 #include <stdlib.h>
-
+void checkArgumentNumbers(int numberOfArgument);
 struct addrinfo *get_address_of_server(char *servername,char *port);

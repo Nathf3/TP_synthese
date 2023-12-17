@@ -1,17 +1,16 @@
 
 #include "TFTP.h"
 int main(int argc, char * argv[ ]){
+    checkArgumentNumbers( argc);//verification of number of arguments
+    //storage of arguments
+    char * file = argv[1];
     char * servername = argv[2];
     char * port = argv[3];
+    //buffer init
     char bufferServiceName[128] = {0};
     char bufferHostname[128] = {0};
 
-    if(argc != 4){
-        perror("Wrong usage : gettftp filename server port \n");
-    }
-
-    printf("Trying to get %s from %s on port %s\n", argv[1], argv[2], argv[3]);
-
+    printf("Trying to get %s from %s on port %s\n", file, servername,port);
     struct addrinfo * client = get_address_of_server(servername, port);
     int sock=socket( client->ai_family , client->ai_socktype, client->ai_protocol );
     if(sock < 0) { //control error
@@ -43,4 +42,14 @@ struct addrinfo * get_address_of_server(char * servername,char * port){
         exit(EXIT_FAILURE);
     }
     return result;
+}
+void checkArgumentNumbers(int numberOfArgument){// verification that the number of argument are good (4)
+    if(numberOfArgument > 4){
+        fprintf(stderr,"Too many argument \ngettftp [file_name] [server_name] [port_number]");
+        exit(EXIT_FAILURE);
+    }
+    if(numberOfArgument<4){
+        fprintf(stderr,"Not enough argument \nHelp: gettftp [file_name] [server_name] [port_number]");
+        exit(EXIT_FAILURE);
+    }
 }
