@@ -1,5 +1,5 @@
 
-#include "TFTP.h"
+#include "gettftp.h"
 int main(int argc, char * argv[ ]){
     checkArgumentNumbers( argc);//verification of number of arguments
     //storage of arguments
