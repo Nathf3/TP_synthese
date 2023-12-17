@@ -92,3 +92,4 @@ char * port = argv[3];
 ## Etape 2 - Appel de `getaddrinfo(servername,port,&hints,&result)` pour obtenir l'adresse du serveur  
 
 
+
