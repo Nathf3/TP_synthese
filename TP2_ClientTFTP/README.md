@@ -147,6 +147,7 @@ On obtient bien le résultat souhaité :
 00 01 6f 6e 65 73 ..ones  
 32 35 36 00 6e 65 256.neta
 74 61 73 63 69 69 scii
-00
+00                .
 ```
+### 4.b Réception d’un fichier constitué d’un seul paquet de données (DAT) et son acquit-tement (ACK)  
 
