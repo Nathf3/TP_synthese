@@ -117,9 +117,9 @@ void receive_Data(int sock,char * file_name){
         byte_received= recvfrom(sock,bufferreceivefromserver,sizeof(bufferreceivefromserver),0,(struct sockaddr *)&server_addr,&server_addr_len);
         Acknowledgment(bufferreceivefromserver[3],sock,&server_addr, server_addr_len);
         byte_receive_total+=byte_received-HEAD_SIZE;
-        // writing data without the 4 begining bytes and set the cursor at the good position
+
+        // writing data without the 4 begining bytes and write at the end of the file.
         int output_file_next = open(file_name, O_WRONLY | O_APPEND);
-        //fseek(output_file, MAX_BUFFER_SIZE*(bufferreceivefromserver[3]-1), SEEK_SET);
         if(write(output_file_next,bufferreceivefromserver+HEAD_SIZE, byte_received - HEAD_SIZE)<0){
             fprintf(stderr,"error during writing file");
             close(output_file_next);
@@ -130,7 +130,6 @@ void receive_Data(int sock,char * file_name){
             fprintf(stderr,"Error during receive");
             exit(EXIT_FAILURE);
         }
-      //  fclose(output_file);
     }
 
 
