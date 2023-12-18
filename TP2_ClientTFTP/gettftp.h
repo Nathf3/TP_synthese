@@ -29,4 +29,4 @@
 void checkArgumentNumbers(int numberOfArgument);
 struct addrinfo *get_address_of_server(char *servername,char *port);
 int Read_Request(char * file_name,int sock,struct addrinfo * client);//read request function
-void Acknowledgment(int block,int sock,struct addrinfo * client);//send Acknowledgment
+void Acknowledgment(int block,int sock,struct sockaddr_storage *server_addr, socklen_t server_addr_len);//send Acknowledgment

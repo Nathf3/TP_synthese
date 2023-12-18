@@ -28,16 +28,33 @@ int main(int argc, char * argv[ ]){
     //Acknowledgment(1024,sock,client);
 
     struct sockaddr_storage server_addr;
+
     socklen_t server_addr_len=sizeof(server_addr);
     int byte_received= recvfrom(sock,bufferreceivefromserver,sizeof(bufferreceivefromserver),0,(struct sockaddr *)&server_addr,&server_addr_len);
-    if(byte_received==-1){
-        fprintf(stderr,"Error durring receive");
-        exit(EXIT_FAILURE);
+    Acknowledgment(1,sock,&server_addr, server_addr_len);
+    int byte_receive_total=byte_received;
+
+    while(byte_received>=MAX_BUFFER_SIZE){
+
+
+        byte_received= recvfrom(sock,bufferreceivefromserver,sizeof(bufferreceivefromserver),0,(struct sockaddr *)&server_addr,&server_addr_len);
+        Acknowledgment(bufferreceivefromserver[3],sock,&server_addr, server_addr_len);
+        if(byte_received>=MAX_BUFFER_SIZE){
+            byte_receive_total+=byte_received;
+        }
+        if(byte_received==-1){
+            fprintf(stderr,"Error during receive");
+            exit(EXIT_FAILURE);
+        }
+
     }
-    Acknowledgment(1024,sock,client);
-    for(int i=0;i<(int)sizeof(bufferreceivefromserver);i++) {
-        printf("%c ",bufferreceivefromserver[i]);
-    }
+
+
+    printf("data receive: %d ",byte_receive_total);
+
+    /*for(int i=0;i<(int)sizeof(bufferreceivefromserver);i++) {
+        printf("%d ",bufferreceivefromserver[i]);
+    }*/
     return EXIT_SUCCESS;
 }
 
@@ -85,12 +102,13 @@ int Read_Request(char * file_name,int sock,struct addrinfo * client){//read requ
     return numberOfCaracterSend;
 }
 
-void Acknowledgment(int block,int sock,struct addrinfo * client){//send Acknowledgment
+void Acknowledgment(int block,int sock,struct sockaddr_storage *server_addr, socklen_t server_addr_len){//send Acknowledgment
     int len_msg=4;
     char RRQ_request_msg[len_msg];
     sprintf(RRQ_request_msg, "%c%c%c%c",Null_Byte,ACK_Opcode,(int16_t)(block >> 8) , (int16_t)block );
-    int numberOfCaracterSend=sendto(sock,RRQ_request_msg,len_msg,0,client->ai_addr,client ->ai_addrlen);
-    if(numberOfCaracterSend==-1) {
+
+    int numberOfCharacterSend=sendto(sock,RRQ_request_msg,len_msg,0, (struct sockaddr *)server_addr, server_addr_len);
+    if(numberOfCharacterSend==-1) {
         fprintf(stderr,"error send RRQ");
         exit(EXIT_FAILURE);
     }
