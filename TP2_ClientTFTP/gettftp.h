@@ -21,12 +21,13 @@
 #define ACK_Opcode '\x04'
 #define ACK_Block '\x01'
 #define Null_Byte '\0'
-#define RRQ_Mode "netascii"
-#define WRQ_Mode "netascii"
-
+#define RRQ_Mode "octet"
+#define WRQ_Mode "octet"
+#define HEAD_SIZE 4
 #define MAX_BUFFER_SIZE 512
 //Function//
 void checkArgumentNumbers(int numberOfArgument);
 struct addrinfo *get_address_of_server(char *servername,char *port);
 int Read_Request(char * file_name,int sock,struct addrinfo * client);//read request function
 void Acknowledgment(int block,int sock,struct sockaddr_storage *server_addr, socklen_t server_addr_len);//send Acknowledgment
+void receive_Data(int sock,char * file_name);

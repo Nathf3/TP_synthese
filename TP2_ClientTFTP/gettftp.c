@@ -9,7 +9,6 @@ int main(int argc, char * argv[ ]){
     //buffer init
     char bufferServiceName[128] = {0};
     char bufferHostname[128] = {0};
-    char bufferreceivefromserver[MAX_BUFFER_SIZE] = {0};
     printf("Trying to get %s from %s on port %s\n", file_name, servername,port);
     struct addrinfo * client = get_address_of_server(servername, port);
     //socket build
@@ -27,30 +26,8 @@ int main(int argc, char * argv[ ]){
     printf("number of character send :%d \n",NumberOfCharacterSend);
     //Acknowledgment(1024,sock,client);
 
-    struct sockaddr_storage server_addr;
 
-    socklen_t server_addr_len=sizeof(server_addr);
-    int byte_received= recvfrom(sock,bufferreceivefromserver,sizeof(bufferreceivefromserver),0,(struct sockaddr *)&server_addr,&server_addr_len);
-    Acknowledgment(1,sock,&server_addr, server_addr_len);
-    int byte_receive_total=byte_received;
-
-    while(byte_received>=MAX_BUFFER_SIZE){
-
-
-        byte_received= recvfrom(sock,bufferreceivefromserver,sizeof(bufferreceivefromserver),0,(struct sockaddr *)&server_addr,&server_addr_len);
-        Acknowledgment(bufferreceivefromserver[3],sock,&server_addr, server_addr_len);
-        if(byte_received>=MAX_BUFFER_SIZE){
-            byte_receive_total+=byte_received;
-        }
-        if(byte_received==-1){
-            fprintf(stderr,"Error during receive");
-            exit(EXIT_FAILURE);
-        }
-
-    }
-
-
-    printf("data receive: %d ",byte_receive_total);
+    receive_Data(sock,file_name);
 
     /*for(int i=0;i<(int)sizeof(bufferreceivefromserver);i++) {
         printf("%d ",bufferreceivefromserver[i]);
@@ -112,4 +89,44 @@ void Acknowledgment(int block,int sock,struct sockaddr_storage *server_addr, soc
         fprintf(stderr,"error send RRQ");
         exit(EXIT_FAILURE);
     }
+}
+
+void receive_Data(int sock,char * file_name){
+    char bufferreceivefromserver[MAX_BUFFER_SIZE+HEAD_SIZE] = {0};//buffer of receive
+    struct sockaddr_storage server_addr;
+    socklen_t server_addr_len=sizeof(server_addr);
+
+    //first receive_data
+    int byte_received= recvfrom(sock,bufferreceivefromserver,sizeof(bufferreceivefromserver),0,(struct sockaddr *)&server_addr,&server_addr_len);
+    int byte_receive_total=byte_received-HEAD_SIZE;
+    //ACK
+    Acknowledgment(1,sock,&server_addr, server_addr_len);
+    //open file in writing mode
+    FILE *output_file = fopen(file_name, "wb");
+    if (output_file == NULL) {
+        fprintf(stderr,"error during opening file");
+        exit(EXIT_FAILURE);
+    }
+    // writing data
+    fwrite(bufferreceivefromserver + HEAD_SIZE  , sizeof(char), byte_received - HEAD_SIZE, output_file);
+
+    // for more data we check if the number of byte receive is >= than MAX_BUFFER_SIZE. If that's the case, it means that the server will send an other data packet
+    while(byte_received>=MAX_BUFFER_SIZE){
+
+        byte_received= recvfrom(sock,bufferreceivefromserver,sizeof(bufferreceivefromserver),0,(struct sockaddr *)&server_addr,&server_addr_len);
+        Acknowledgment(bufferreceivefromserver[3],sock,&server_addr, server_addr_len);
+        byte_receive_total+=byte_received-HEAD_SIZE;
+        // writing data sans les 4 premier yte
+        fseek(output_file, MAX_BUFFER_SIZE*(bufferreceivefromserver[3]-1), SEEK_SET);
+        fwrite(bufferreceivefromserver + HEAD_SIZE, sizeof(char), byte_received - HEAD_SIZE, output_file);
+
+        if(byte_received==-1){
+            fprintf(stderr,"Error during receive");
+            exit(EXIT_FAILURE);
+        }
+        fclose(output_file);
+    }
+
+
+    printf("data receive: %d ",byte_receive_total);
 }
