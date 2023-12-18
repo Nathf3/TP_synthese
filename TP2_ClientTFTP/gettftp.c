@@ -99,7 +99,6 @@ void receive_Data(int sock,char * file_name){
     //first receive_data
     int byte_received= recvfrom(sock,bufferreceivefromserver,sizeof(bufferreceivefromserver),0,(struct sockaddr *)&server_addr,&server_addr_len);
     int byte_receive_total=byte_received-HEAD_SIZE;
-    //ACK
     Acknowledgment(1,sock,&server_addr, server_addr_len);
     //open file in writing mode
     FILE *output_file = fopen(file_name, "wb");
