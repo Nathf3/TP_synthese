@@ -13,7 +13,7 @@
 #include "sys/socket.h"
 #include "netdb.h"
 #include <stdlib.h>
-
+#include <fcntl.h>
 //define
 #define RRQ_Opcode '\x01'
 #define WRQ_Opcode '\x02'

@@ -1,4 +1,6 @@
 
+
+#include <unistd.h>
 #include "gettftp.h"
 int main(int argc, char * argv[ ]){
     checkArgumentNumbers( argc);//verification of number of arguments
@@ -101,14 +103,14 @@ void receive_Data(int sock,char * file_name){
     int byte_receive_total=byte_received-HEAD_SIZE;
     Acknowledgment(1,sock,&server_addr, server_addr_len);
     //open file in writing mode
-    FILE *output_file = fopen(file_name, "wb");
+    FILE * output_file = fopen(file_name, "wb");
     if (output_file == NULL) {
         fprintf(stderr,"error during opening file");
         exit(EXIT_FAILURE);
     }
     // writing data
     fwrite(bufferreceivefromserver + HEAD_SIZE  , sizeof(char), byte_received - HEAD_SIZE, output_file);
-
+    fclose(output_file);
     // for more data we check if the number of byte receive is >= than MAX_BUFFER_SIZE. If that's the case, it means that the server will send an other data packet
     while(byte_received>=MAX_BUFFER_SIZE){
 
@@ -116,14 +118,19 @@ void receive_Data(int sock,char * file_name){
         Acknowledgment(bufferreceivefromserver[3],sock,&server_addr, server_addr_len);
         byte_receive_total+=byte_received-HEAD_SIZE;
         // writing data without the 4 begining bytes and set the cursor at the good position
-        fseek(output_file, MAX_BUFFER_SIZE*(bufferreceivefromserver[3]-1), SEEK_SET);
-        fwrite(bufferreceivefromserver + HEAD_SIZE, sizeof(char), byte_received - HEAD_SIZE, output_file);
-
+        int output_file_next = open(file_name, O_WRONLY | O_APPEND);
+        //fseek(output_file, MAX_BUFFER_SIZE*(bufferreceivefromserver[3]-1), SEEK_SET);
+        if(write(output_file_next,bufferreceivefromserver+HEAD_SIZE, byte_received - HEAD_SIZE)<0){
+            fprintf(stderr,"error during writing file");
+            close(output_file_next);
+            exit(EXIT_FAILURE);
+        }
+        close(output_file_next);
         if(byte_received==-1){
             fprintf(stderr,"Error during receive");
             exit(EXIT_FAILURE);
         }
-        fclose(output_file);
+      //  fclose(output_file);
     }
 
 
