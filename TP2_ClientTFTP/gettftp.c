@@ -9,7 +9,7 @@ int main(int argc, char * argv[ ]){
     //buffer init
     char bufferServiceName[128] = {0};
     char bufferHostname[128] = {0};
-
+    char bufferreceivefromserver[MAX_BUFFER_SIZE] = {0};
     printf("Trying to get %s from %s on port %s\n", file_name, servername,port);
     struct addrinfo * client = get_address_of_server(servername, port);
     //socket build
@@ -22,10 +22,22 @@ int main(int argc, char * argv[ ]){
     getnameinfo(client -> ai_addr,client -> ai_addrlen,bufferHostname,128,bufferServiceName,128,NI_NUMERICHOST | NI_NUMERICSERV);
     printf("server : %s:%s\n",bufferHostname, bufferServiceName);
 
-
-
+    //send RRQ
     int NumberOfCaracterSend=Read_Request(file_name,sock,client);
     printf("number of caracter send :%d \n",NumberOfCaracterSend);
+    //Acknowledgment(1024,sock,client);
+
+    struct sockaddr_storage server_addr;
+    socklen_t server_addr_len=sizeof(server_addr);
+    int byte_received= recvfrom(sock,bufferreceivefromserver,sizeof(bufferreceivefromserver),0,(struct sockaddr *)&server_addr,&server_addr_len);
+    if(byte_received==-1){
+        fprintf(stderr,"Error durring receive");
+        exit(EXIT_FAILURE);
+    }
+    Acknowledgment(1024,sock,client);
+    for(int i=0;i<(int)sizeof(bufferreceivefromserver);i++) {
+        printf("%c ",bufferreceivefromserver[i]);
+    }
     return EXIT_SUCCESS;
 }
 
@@ -71,4 +83,15 @@ int Read_Request(char * file_name,int sock,struct addrinfo * client){//read requ
         exit(EXIT_FAILURE);
     }
     return numberOfCaracterSend;
+}
+
+void Acknowledgment(int block,int sock,struct addrinfo * client){//send Acknowledgment
+    int len_msg=4;
+    char RRQ_request_msg[len_msg];
+    sprintf(RRQ_request_msg, "%c%c%c%c",Null_Byte,ACK_Opcode,(int16_t)(block >> 8) , (int16_t)block );
+    int numberOfCaracterSend=sendto(sock,RRQ_request_msg,len_msg,0,client->ai_addr,client ->ai_addrlen);
+    if(numberOfCaracterSend==-1) {
+        fprintf(stderr,"error send RRQ");
+        exit(EXIT_FAILURE);
+    }
 }
