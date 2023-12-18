@@ -115,7 +115,7 @@ void receive_Data(int sock,char * file_name){
         byte_received= recvfrom(sock,bufferreceivefromserver,sizeof(bufferreceivefromserver),0,(struct sockaddr *)&server_addr,&server_addr_len);
         Acknowledgment(bufferreceivefromserver[3],sock,&server_addr, server_addr_len);
         byte_receive_total+=byte_received-HEAD_SIZE;
-        // writing data without the 4 begining bytes
+        // writing data without the 4 begining bytes and set the cursor at the good position
         fseek(output_file, MAX_BUFFER_SIZE*(bufferreceivefromserver[3]-1), SEEK_SET);
         fwrite(bufferreceivefromserver + HEAD_SIZE, sizeof(char), byte_received - HEAD_SIZE, output_file);
 
