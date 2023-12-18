@@ -23,8 +23,8 @@ int main(int argc, char * argv[ ]){
     printf("server : %s:%s\n",bufferHostname, bufferServiceName);
 
     //send RRQ
-    int NumberOfCaracterSend=Read_Request(file_name,sock,client);
-    printf("number of caracter send :%d \n",NumberOfCaracterSend);
+    int NumberOfCharacterSend=Read_Request(file_name,sock,client);
+    printf("number of character send :%d \n",NumberOfCharacterSend);
     //Acknowledgment(1024,sock,client);
 
     struct sockaddr_storage server_addr;
@@ -93,13 +93,13 @@ int Read_Request(char * file_name,int sock,struct addrinfo * client){//read requ
     // construction of RRQ
     snprintf(RRQ_request_msg, sizeof(RRQ_request_msg), "%c%c%s%c%s%02x", Null_Byte,RRQ_Opcode, file_name, Null_Byte, RRQ_Mode, Null_Byte);
     //envoie du RRQ
-    int numberOfCaracterSend=sendto(sock,RRQ_request_msg,message_size,0,client->ai_addr,client ->ai_addrlen);
+    int numberOfCharacterSend=sendto(sock,RRQ_request_msg,message_size,0,client->ai_addr,client ->ai_addrlen);
 
-    if(numberOfCaracterSend==-1) {
+    if(numberOfCharacterSend==-1) {
         fprintf(stderr,"error send RRQ");
         exit(EXIT_FAILURE);
     }
-    return numberOfCaracterSend;
+    return numberOfCharacterSend;
 }
 
 void Acknowledgment(int block,int sock,struct sockaddr_storage *server_addr, socklen_t server_addr_len){//send Acknowledgment
