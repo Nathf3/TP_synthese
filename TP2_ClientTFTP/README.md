@@ -149,5 +149,5 @@ On obtient bien le résultat souhaité :
 74 61 73 63 69 69 scii
 00                .
 ```
-### 4.b Réception d’un fichier constitué d’un seul paquet de données (DAT) et son acquit-tement (ACK)  
+### 4.b Réception d’un fichier constitué d’un seul paquet de données (DAT) et son acquittement (ACK)  
 
