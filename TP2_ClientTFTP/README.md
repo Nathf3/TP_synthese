@@ -176,9 +176,18 @@ Apres avoir receptionné les donners on renvoie un accusé de reception avec `Ac
 /!\ il faut que le port de renvoie soit identique au port par lequel le serveur à répondu et non le port inititial.   
 On obtient donc :  
 
-
+Trying to get ones256 from 127.0.0.1 on port 1069
+server : 127.0.0.1:1069
+number of character send :16
+data receive: 256
+Process finished with exit code
 ### 4.c Réception d’un fichier constitué de plusieurs paquets de données (DAT) et leurs acquittements respectifs (ACK)  
 Cette partie est une généralisation de la partie précédente pour la récupération de fichiers trop volumineux pour être envoyés en une seule communication.  
 Pour y parvenir, on initie une variable globale MAX_BUFFER_SIZE à 512, le nombre maximal d'octets pouvant être transmis dans une seule communication.  
 Puis on découpe le message à transmettre en parties de 512 octets à l'aide d'une boucle while sur la longueur du message restant à transmettre.  
 ```
+Trying to get ones1024 from 127.0.0.1 on port 1069
+server : 127.0.0.1:1069
+number of character send :17 
+data receive: 1024 
+Process finished with exit code 0
