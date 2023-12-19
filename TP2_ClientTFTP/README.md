@@ -189,7 +189,7 @@ On obtient bien les 2 requête et la reception du fichier :
 ### 4.c Réception d’un fichier constitué de plusieurs paquets de données (DAT) et leurs acquittements respectifs (ACK)  
   
 Idéalement, on souhaite pouvoir recevoir des fichiers de toutes tailles. Or, la limite de data d'un block est de 512 octets. Nous souhaitons donc pouvoir ajouter la possibilité de recevoir des fichiers d'une taille de plusieurs blocks de données.
-Pour ce faire, on regarde si le nombre de données reçues est égale à la quantité maximale de données que l'on peut envoyer. Si c'est le cas, cela signifie que le fichier qui est transmis pèse au moins 512 octets et qu'un autre block va être envoyé (éventuellement vide). On recupère donc le contenu du premier block et on le stocke dans un fichier. On utilise write /close avec O_APPEND pour ajouter de nouvelles données à la fin du fichier.
+Pour ce faire, on regarde si le nombre de données reçues est égale à la quantité maximale de données que l'on peut envoyer. Si c'est le cas, cela signifie qu'un autre block va être envoyé. On recupère donc le contenu du block suivant et on le stocke dans le fichier. On utilise write /close avec O_APPEND pour ajouter ces nouvelles données à la fin du fichier.
 On utilise donc le code suivant :
 ```ruby
 while(byte_received>=MAX_BUFFER_SIZE){
