@@ -188,9 +188,9 @@ On obtient bien les 2 requête et la reception du fichier :
 ![Capture Wireshark des 3 communications relevées lors du gettftp.](https://github.com/Nathf3/TP_synthese/blob/main/TP2_ClientTFTP/photo/getwithprog.png)  
 ### 4.c Réception d’un fichier constitué de plusieurs paquets de données (DAT) et leurs acquittements respectifs (ACK)  
   
-L'objectif est de pouvoir recevoir tous type de fichier des petits comme des gros or la limite de data d'un block est de 512 octets on doit donc rajouter la possibilité de recevoir plusieurs block de données.
-Pour ce faire on regarde si le nombre de données reçus est égale à la quantité max de données que l'on peux envoyer.Si c'est le cas c'est que un autre block va être envoyer. On recupère donc son contenu et on le stocke dans le fichier on utilise write /close avec O_APPEND pour ecrire à la fin du fichier .
-On à donc le code suivant :
+Idéalement, on souhaite pouvoir recevoir des fichiers de toutes tailles. Or, la limite de data d'un block est de 512 octets. Nous souhaitons donc pouvoir ajouter la possibilité de recevoir des fichiers d'une taille de plusieurs blocks de données.
+Pour ce faire, on regarde si le nombre de données reçues est égale à la quantité maximale de données que l'on peut envoyer. Si c'est le cas, cela signifie que le fichier qui est transmis pèse au moins 512 octets et qu'un autre block va être envoyé (éventuellement vide). On recupère donc le contenu du premier block et on le stocke dans un fichier. On utilise write /close avec O_APPEND pour ajouter de nouvelles données à la fin du fichier.
+On utilise donc le code suivant :
 ```ruby
 while(byte_received>=MAX_BUFFER_SIZE){
 
@@ -220,9 +220,9 @@ number of character send :17
 data receive: 1024 
 Process finished with exit code 0
 ```
-On à bien l'envoie et aqucitement des 3 blocks données pour un envoie de 1024 octets.
+On observe bien l'envoi et l'acquittement des 3 blocks de données pour un envoi de 1024 octets.
 
 ## Conclusion  
-Durant ce Tp on à pus comprendre comment fonctionnait le protocole TFTP et réaliser un programme qui permetait de récuperer un fichier par l'intermédiaire du protocole TFTP. L'une des difficulté à été de bien faire attentions au tailles des block en enlevant les entêtes et la conversion netascii des caractères d'envoie comme le 00 -> \0 et le 01 ->\x01 .
+Durant ce Tp, on a pu assimiler les différentes méthodes de fonctionnement du protocole TFTP et réaliser un programme permettant de récuperer un fichier depuis un serveur par l'intermédiaire du protocole TFTP. Les principales difficultés recontrées ont été le respect des tailles des blocks en retirant les entêtes et la conversion netascii des caractères d'envoi comme le 00 -> \0 et le 01 ->\x01.
 
 
