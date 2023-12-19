@@ -151,54 +151,32 @@ On obtient bien le résultat souhaité :
 ```
 ### 4.b Réception d’un fichier constitué d’un seul paquet de données (DAT) et son acquittement (ACK)  
 On doit maintenant réceptionner les données envoyées par le serveur suite à notre requête.  
-Pour ce faire, on crée une fonction "receive_Data" dont l'objectif est de récupérer le contenu du socket pour l'écrire dans un buffer et l'afficher dans le terminal de CLion.  
-```
+Pour ce faire, on crée une fonction "receive_Data" dont l'objectif est de récupérer le contenu du socket pour l'écrire dans un fichier qui porte le même nom et efficher le nombre de données transferer dans le terminal.  
+```ruby
 void receive_Data(int sock,char * file_name){
-
-    char bufferreceivefromserver[MAX_BUFFER_SIZE] = {0};  //buffer of receive
+    char bufferreceivefromserver[MAX_BUFFER_SIZE+HEAD_SIZE] = {0};
     struct sockaddr_storage server_addr;
     socklen_t server_addr_len=sizeof(server_addr);
-
     //first receive_data
     int byte_received= recvfrom(sock,bufferreceivefromserver,sizeof(bufferreceivefromserver),0,(struct sockaddr *)&server_addr,&server_addr_len);
-    int byte_receive_total=byte_received;
-    //ACK
+    int byte_receive_total=byte_received-HEAD_SIZE;
     Acknowledgment(1,sock,&server_addr, server_addr_len);
-    //open file in writing mode
-    FILE *output_file = fopen(file_name, "wb");
+    FILE * output_file = fopen(file_name, "wb");
     if (output_file == NULL) {
         fprintf(stderr,"error during opening file");
         exit(EXIT_FAILURE);
     }
     // writing data
-    fwrite(bufferreceivefromserver + 4, sizeof(char), byte_received - 4, output_file);
-```  
-Puis on inclut cette fonction dans le main :  
-```  
-receive_Data(sock,file_name);
-```  
+    fwrite(bufferreceivefromserver + HEAD_SIZE  , sizeof(char),byte_received - HEAD_SIZE, output_file);
+    fclose(output_file);
+}
 ```
-0000   00 00 00 00 00 00 00 00 00 00 00 00 08 00 45 00   ..............E.
-0010   01 20 80 9d 00 00 40 11 fb 2d 7f 00 00 01 7f 00   . ....@..-......
-0020   00 01 d0 40 b5 cd 01 0c ff 1f 00 03 00 01 ff ff   ...@............
-0030   ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff   ................
-0040   ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff   ................
-0050   ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff   ................
-0060   ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff   ................
-0070   ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff   ................
-0080   ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff   ................
-0090   ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff   ................
-00a0   ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff   ................
-00b0   ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff   ................
-00c0   ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff   ................
-00d0   ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff   ................
-00e0   ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff   ................
-00f0   ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff   ................
-0100   ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff   ................
-0110   ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff   ................
-0120   ff ff ff ff ff ff ff ff ff ff ff ff ff ff         ..............
-```  
-On parvient bien à afficher le contenu du fichier ones256 dans le terminal.  
+Pour la bonne reception il faut prévoir un buffer de taille 512+4 pour l'entête car le block data est de taille maximal de 512  octets .
+Apres avoir receptionné les donners on renvoie un accusé de reception avec `Acknowledgment(1,sock,&server_addr, server_addr_len)`.  
+/!\ il faut que le port de renvoie soit identique au port par lequel le serveur à répondu et non le port inititial.   
+On obtient donc :  
+
+
 ### 4.c Réception d’un fichier constitué de plusieurs paquets de données (DAT) et leurs acquittements respectifs (ACK)  
 Cette partie est une généralisation de la partie précédente pour la récupération de fichiers trop volumineux pour être envoyés en une seule communication.  
 Pour y parvenir, on initie une variable globale MAX_BUFFER_SIZE à 512, le nombre maximal d'octets pouvant être transmis dans une seule communication.  
