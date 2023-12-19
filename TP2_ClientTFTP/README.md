@@ -176,18 +176,53 @@ Apres avoir receptionné les donners on renvoie un accusé de reception avec `Ac
 /!\ il faut que le port de renvoie soit identique au port par lequel le serveur à répondu et non le port inititial.   
 On obtient donc :  
 
+```
 Trying to get ones256 from 127.0.0.1 on port 1069
 server : 127.0.0.1:1069
 number of character send :16
 data receive: 256
 Process finished with exit code
+```
+On obtient bien les 2 requête et la reception du fichier :
+
+![Capture Wireshark des 3 communications relevées lors du gettftp.](https://github.com/Nathf3/TP_synthese/blob/main/TP2_ClientTFTP/photo/getwithprog.png)  
 ### 4.c Réception d’un fichier constitué de plusieurs paquets de données (DAT) et leurs acquittements respectifs (ACK)  
-Cette partie est une généralisation de la partie précédente pour la récupération de fichiers trop volumineux pour être envoyés en une seule communication.  
-Pour y parvenir, on initie une variable globale MAX_BUFFER_SIZE à 512, le nombre maximal d'octets pouvant être transmis dans une seule communication.  
-Puis on découpe le message à transmettre en parties de 512 octets à l'aide d'une boucle while sur la longueur du message restant à transmettre.  
+  
+L'objectif est de pouvoir recevoir tous type de fichier des petits comme des gros or la limite de data d'un block est de 512 octets on doit donc rajouter la possibilité de recevoir plusieurs block de données.
+Pour ce faire on regarde si le nombre de données reçus est égale à la quantité max de données que l'on peux envoyer.Si c'est le cas c'est que un autre block va être envoyer. On recupère donc son contenu et on le stocke dans le fichier on utilise write /close avec O_APPEND pour ecrire à la fin du fichier .
+On à donc le code suivant :
+```ruby
+while(byte_received>=MAX_BUFFER_SIZE){
+
+    byte_received= recvfrom(sock,bufferreceivefromserver,sizeof(bufferreceivefromserver),0,(struct sockaddr *)&server_addr,&server_addr_len);
+    Acknowledgment(bufferreceivefromserver[3],sock,&server_addr, server_addr_len);
+    byte_receive_total+=byte_received-HEAD_SIZE;
+
+    // writing data without the 4 begining bytes and write at the end of the file.
+    int output_file_next = open(file_name, O_WRONLY | O_APPEND);
+    if(write(output_file_next,bufferreceivefromserver+HEAD_SIZE, byte_received - HEAD_SIZE)<0){
+        fprintf(stderr,"error during writing file");
+        close(output_file_next);
+        exit(EXIT_FAILURE);
+    }
+    close(output_file_next);
+    if(byte_received==-1){
+        fprintf(stderr,"Error during receive");
+        exit(EXIT_FAILURE);
+    }
+}
+```
+![Capture Wireshark d'une communication avec plusieurs block](https://github.com/Nathf3/TP_synthese/blob/main/TP2_ClientTFTP/photo/putapp.png)
 ```
 Trying to get ones1024 from 127.0.0.1 on port 1069
 server : 127.0.0.1:1069
 number of character send :17 
 data receive: 1024 
 Process finished with exit code 0
+```
+On à bien l'envoie et aqucitement des 3 blocks données pour un envoie de 1024 octets.
+
+## Conclusion  
+Durant ce Tp on à pus comprendre comment fonctionnait le protocole TFTP et réaliser un programme qui permetait de récuperer un fichier par l'intermédiaire du protocole TFTP. L'une des difficulté à été de bien faire attentions au tailles des block en enlevant les entêtes et la conversion netascii des caractères d'envoie comme le 00 -> \0 et le 01 ->\x01 .
+
+
